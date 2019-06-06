@@ -5,10 +5,10 @@ import "./App.css";
 const Result = props => {
   return (
     <div className="result-container">
-      <div id="display" className="head">
-        {props.head}
+      <div className="head">{props.head}</div>
+      <div id="display" className="result">
+        {props.result}
       </div>
-      <div className="result">{props.result}</div>
     </div>
   );
 };
