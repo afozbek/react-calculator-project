@@ -5,9 +5,9 @@ import Result from "./Result";
 import Buttons from "./Buttons";
 import "./App.css";
 
-const isOperator = /[*+-/]/,
-  endsWithOperator = /[*+-/]$/,
-  startsWithOperator = /^[*+-/]/,
+const isOperator = /[*+\-/]/,
+  endsWithOperator = /[*+\-/]$/,
+  startsWithOperator = /^[*+\-/]/,
   // betweenOperators = /^[*+\-/]|[*+\-/]$/g,
   startsWithZero = /^0/;
 
@@ -41,21 +41,28 @@ class Calculator extends React.Component {
         isEvaluated: false
       });
     } else {
-      let currVal = currVal_.replace(startsWithZero, "");
-      let prevVal = prevVal_.replace(startsWithZero, "");
-
-      if (prevVal_ === "0" && value === "0") return;
-
-      if (isOperator.test(prevVal)) {
-        prevVal = value;
+      if (this.state.currVal.includes(".")) {
+        this.setState({
+          currVal: currVal_ + value,
+          prevVal: currVal_ + value
+        });
       } else {
-        prevVal += value;
-      }
+        let currVal = currVal_.replace(startsWithZero, "");
+        let prevVal = prevVal_.replace(startsWithZero, "");
 
-      this.setState({
-        currVal: currVal + value,
-        prevVal: prevVal
-      });
+        if (prevVal_ === "0" && value === "0") return;
+
+        if (isOperator.test(prevVal)) {
+          prevVal = value;
+        } else {
+          prevVal += value;
+        }
+
+        this.setState({
+          currVal: currVal + value,
+          prevVal: prevVal
+        });
+      }
     }
   };
 
@@ -75,6 +82,7 @@ class Calculator extends React.Component {
     } else {
       if (isOperator.test(prevVal)) {
         let currVal_ = currVal.replace(endsWithOperator, value);
+        console.log(currVal_);
         let slicedOps = operations.slice(0, operations.length - 1);
         this.setState({
           currVal: currVal_,
@@ -139,7 +147,24 @@ class Calculator extends React.Component {
     }
   };
 
-  handleDecimal = () => {};
+  handleDecimal = e => {
+    if (this.state.isEvaluated) {
+      this.setState({
+        currVal: "0" + e.target.value,
+        prevVal: "0" + e.target.value,
+        isEvaluated: false
+      });
+    } else {
+      if (this.state.currVal.includes(".")) {
+        return;
+      } else {
+        this.setState({
+          currVal: this.state.currVal + e.target.value,
+          prevVal: this.state.currVal + e.target.value
+        });
+      }
+    }
+  };
 
   render() {
     return (
