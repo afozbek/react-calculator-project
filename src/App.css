@@ -183,6 +183,9 @@ button:hover {
   text-align: right;
   color: orange;
   font-family: "Orbitron", sans-serif;
+  text-align: right;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 .result {
   text-align: right;
