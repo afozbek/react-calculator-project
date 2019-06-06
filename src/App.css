@@ -12,6 +12,10 @@
   color: white;
   background-color: black;
   font-family: "Orbitron", sans-serif;
+  -webkit-box-shadow: 0px 0px 32px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 32px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 32px -4px rgba(0, 0, 0, 0.75);
+  border-radius: 4px;
 }
 
 .buttons-container {
@@ -69,10 +73,12 @@ button:hover {
 .author {
   display: flex;
   margin-top: 25px;
+  letter-spacing: 1.5px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .author a {
   text-decoration: none;
+  color: #004466;
 }
