@@ -15,14 +15,28 @@ class Calculator extends React.Component {
   state = {
     currVal: "0",
     prevVal: "0",
+    maxPrevVal: "0",
     operations: [],
     isEvaluated: false
+  };
+
+  maxDigitWarning = () => {
+    this.setState({
+      prevVal: "MAX DIGIT LIMIT",
+      maxPrevVal: this.state.prevVal
+    });
+    setTimeout(() => {
+      this.setState({
+        prevVal: this.state.maxPrevVal
+      });
+    }, 1000);
   };
 
   handleClear = () => {
     this.setState({
       currVal: "0",
       prevVal: "0",
+      maxPrevVal: "0",
       operations: [],
       isEvaluated: false
     });
@@ -33,35 +47,39 @@ class Calculator extends React.Component {
     let prevVal_ = this.state.prevVal;
     let value = e.target.value;
 
-    if (this.state.isEvaluated) {
-      this.setState({
-        currVal: value,
-        prevVal: value,
-        operations: [],
-        isEvaluated: false
-      });
-    } else {
-      if (this.state.prevVal.includes(".")) {
+    if (!prevVal_.includes("DIGIT")) {
+      if (prevVal_.length > 10) {
+        this.maxDigitWarning();
+      } else if (this.state.isEvaluated) {
         this.setState({
-          currVal: currVal_ + value,
-          prevVal: prevVal_ + value
+          currVal: value,
+          prevVal: value,
+          operations: [],
+          isEvaluated: false
         });
       } else {
-        let currVal = currVal_.replace(startsWithZero, "");
-        let prevVal = prevVal_.replace(startsWithZero, "");
-
-        if (prevVal_ === "0" && value === "0") return;
-
-        if (isOperator.test(prevVal)) {
-          prevVal = value;
+        if (this.state.prevVal.includes(".")) {
+          this.setState({
+            currVal: currVal_ + value,
+            prevVal: prevVal_ + value
+          });
         } else {
-          prevVal += value;
-        }
+          let currVal = currVal_.replace(startsWithZero, "");
+          let prevVal = prevVal_.replace(startsWithZero, "");
 
-        this.setState({
-          currVal: currVal + value,
-          prevVal: prevVal
-        });
+          if (prevVal_ === "0" && value === "0") return;
+
+          if (isOperator.test(prevVal)) {
+            prevVal = value;
+          } else {
+            prevVal += value;
+          }
+
+          this.setState({
+            currVal: currVal + value,
+            prevVal: prevVal
+          });
+        }
       }
     }
   };
@@ -72,28 +90,30 @@ class Calculator extends React.Component {
     let value = e.target.value;
     let operations = [...this.state.operations];
 
-    if (this.state.isEvaluated) {
-      this.setState({
-        currVal: prevVal + value,
-        prevVal: value,
-        operations: [value],
-        isEvaluated: false
-      });
-    } else {
-      if (isOperator.test(prevVal)) {
-        let currVal_ = currVal.replace(endsWithOperator, value);
-        let slicedOps = operations.slice(0, operations.length - 1);
+    if (!currVal.includes("DIGIT")) {
+      if (this.state.isEvaluated) {
         this.setState({
-          currVal: currVal_,
+          currVal: prevVal + value,
           prevVal: value,
-          operations: [...slicedOps, value]
+          operations: [value],
+          isEvaluated: false
         });
       } else {
-        this.setState({
-          currVal: currVal + value,
-          prevVal: value,
-          operations: [...operations, value]
-        });
+        if (isOperator.test(prevVal)) {
+          let currVal_ = currVal.replace(endsWithOperator, value);
+          let slicedOps = operations.slice(0, operations.length - 1);
+          this.setState({
+            currVal: currVal_,
+            prevVal: value,
+            operations: [...slicedOps, value]
+          });
+        } else {
+          this.setState({
+            currVal: currVal + value,
+            prevVal: value,
+            operations: [...operations, value]
+          });
+        }
       }
     }
   };
