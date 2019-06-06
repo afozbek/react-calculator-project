@@ -1,8 +1,9 @@
 import React from "react";
 import * as math from "mathjs";
 
-import Result from "./Result";
-import Buttons from "./Buttons";
+import Result from "./components/Result";
+import Buttons from "./components/Buttons";
+import Author from "./components/Author";
 import "./App.css";
 
 const isOperator = /[*+\-/]/,
@@ -137,7 +138,7 @@ class Calculator extends React.Component {
     } else {
       let sliced = currVal.slice();
       let result = math.eval(sliced);
-      console.log(result);
+
       this.setState({
         currVal: sliced + "=" + String(result),
         prevVal: String(result),
@@ -178,22 +179,10 @@ class Calculator extends React.Component {
             result={this.handleResult}
           />
         </div>
-        <div id="author" className="author">
-          <p>
-            Made with{" "}
-            <span role="img" aria-label="Heart">
-              💗
-            </span>{" "}
-            by
-          </p>
-          <a
-            href="https://github.com/afozbek"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            afozbek
-          </a>
-        </div>
+        <Author
+          name="Abdullah Furkan Özbek"
+          github="https://github.com/afozbek"
+        />
       </div>
     );
   }
