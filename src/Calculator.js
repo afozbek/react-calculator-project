@@ -8,7 +8,6 @@ import "./App.css";
 const isOperator = /[*+\-/]/,
   endsWithOperator = /[*+\-/]$/,
   startsWithOperator = /^[*+\-/]/,
-  // betweenOperators = /^[*+\-/]|[*+\-/]$/g,
   startsWithZero = /^0/;
 
 class Calculator extends React.Component {
@@ -41,10 +40,10 @@ class Calculator extends React.Component {
         isEvaluated: false
       });
     } else {
-      if (this.state.currVal.includes(".")) {
+      if (this.state.prevVal.includes(".")) {
         this.setState({
           currVal: currVal_ + value,
-          prevVal: currVal_ + value
+          prevVal: prevVal_ + value
         });
       } else {
         let currVal = currVal_.replace(startsWithZero, "");
@@ -82,7 +81,6 @@ class Calculator extends React.Component {
     } else {
       if (isOperator.test(prevVal)) {
         let currVal_ = currVal.replace(endsWithOperator, value);
-        console.log(currVal_);
         let slicedOps = operations.slice(0, operations.length - 1);
         this.setState({
           currVal: currVal_,
@@ -139,6 +137,7 @@ class Calculator extends React.Component {
     } else {
       let sliced = currVal.slice();
       let result = math.eval(sliced);
+      console.log(result);
       this.setState({
         currVal: sliced + "=" + String(result),
         prevVal: String(result),
@@ -155,12 +154,12 @@ class Calculator extends React.Component {
         isEvaluated: false
       });
     } else {
-      if (this.state.currVal.includes(".")) {
+      if (this.state.prevVal.includes(".")) {
         return;
       } else {
         this.setState({
           currVal: this.state.currVal + e.target.value,
-          prevVal: this.state.currVal + e.target.value
+          prevVal: this.state.prevVal + e.target.value
         });
       }
     }
