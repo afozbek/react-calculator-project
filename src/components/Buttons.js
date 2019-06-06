@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./App.css";
-
 const Buttons = props => {
   const styles = {
     clearStyle: { background: "#ac3939" },

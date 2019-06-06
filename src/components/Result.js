@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./App.css";
-
 const Result = props => {
   return (
     <div className="result-container">
