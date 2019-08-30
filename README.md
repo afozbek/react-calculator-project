@@ -1,7 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1831b76f-8d35-492e-9506-ff67cf580ea6/deploy-status)](https://app.netlify.com/sites/afozbek-react-calculator/deploys)
-
- See [demo](https://afozbek-react-calculator.netlify.com/)
- If you can't see from there preview from [here](https://afozbek.github.io/React-Calculator-Project/)
+See the preview from [Github Pages](https://afozbek.github.io/React-Calculator-Project/)
 
 # Simple Calculator
 
