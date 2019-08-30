@@ -130,7 +130,7 @@ class Calculator extends React.Component {
     if (startsWithOperator.test(currVal) && endsWithOperator.test(currVal)) {
       let sliced = currVal.slice(0, currVal.length - 1);
       if (sliced[0] === "-" || sliced[0] === "+") {
-        let result = math.eval(sliced);
+        let result = math.evaluate(sliced);
         this.setState({
           currVal: sliced + "=" + String(result),
           prevVal: String(result),
@@ -142,7 +142,7 @@ class Calculator extends React.Component {
     } else if (startsWithOperator.test(currVal)) {
       let sliced = currVal.slice();
       if (sliced[0] === "-" || sliced[0] === "+") {
-        let result = math.eval(sliced);
+        let result = math.evaluate(sliced);
         this.setState({
           currVal: sliced + "=" + String(result),
           prevVal: String(result),
@@ -151,7 +151,7 @@ class Calculator extends React.Component {
       }
     } else if (endsWithOperator.test(currVal)) {
       let sliced = currVal.slice(0, currVal.length - 1);
-      let result = math.eval(sliced);
+      let result = math.evaluate(sliced);
       this.setState({
         currVal: sliced + "=" + String(result),
         prevVal: String(result),
@@ -159,7 +159,7 @@ class Calculator extends React.Component {
       });
     } else {
       let sliced = currVal.slice();
-      let result = math.eval(sliced);
+      let result = math.evaluate(sliced);
 
       this.setState({
         currVal: sliced + "=" + String(result),
