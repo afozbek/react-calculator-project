@@ -1,4 +1,4 @@
-See the preview from [Github Pages](https://afozbek.github.io/React-Calculator-Project/)
+See the preview from [Github Pages](https://afozbek.github.io/react-calculator-project/)
 
 # Simple Calculator
 
